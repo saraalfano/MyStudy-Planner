@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 3000:80
+      - 443:443
+    volumes:
+      - ./containers/nginx/nginx.conf:/etc/nginx/nginx.conf 
+    networks:
+      - app
+    depends_on:
+      - node1
+      - node2
+      - node3
+  node1:
+    build: ./containers/node
+    ports:
+      - 3001:3000
+    container_name: "node1"
+    networks:
+      - app
+      - db
+      - rabbit
+    environment:
+      - NAME_OF_NODE=node1
+  node2:
+    build: ./containers/node
+    ports:
+      - 3002:3000
+    networks:
+      - app
+      - db
+      - rabbit
+    container_name: "node2"
+    environment:
+      - NAME_OF_NODE=node2
+  node3:
+    build: ./containers/node
+    ports:
+      - 3003:3000
+    networks:
+      - app
+      - db
+      - rabbit
+    container_name: "node3"
+    environment:
+      - NAME_OF_NODE=node3
+    
+networks:
+  app:
+  db:
+  rabbit:
