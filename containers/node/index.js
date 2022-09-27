@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-
+const {google} = require("googleapis");
+const passport = require("passport");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { OAuth2 } = google.auth;
+const urlParse = require('url-parse');
+const queryParse = require('query-string');
 var path = require('path');
 app.set('view engine', 'pug'); 
 app.set('views', './views');
