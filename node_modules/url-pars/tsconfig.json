@@ -1,0 +1,13 @@
+{
+  "include": ["src/**/*"],
+  "exclude": ["test/**/*", "node_modules"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "target": "ES5",
+    "module": "CommonJS",
+    "declaration": true,
+    "sourceMap": true
+  }
+}

@@ -11,6 +11,40 @@ var path = require('path');
 app.set('view engine', 'pug'); 
 app.set('views', './views');
 app.use(express.static(path.join(__dirname, 'public')));
+const usernamerabbit = 'user';
+const passwordrabbit = 'password';
+var amqp = require('amqplib/callback_api');
+var request = require("request");
+
+function sendMessage(email){
+  amqp.connect('amqp://'+usernamerabbit+':'+passwordrabbit+'@rabbit', function(error0, connection) {
+      if (error0) {
+          throw error0;
+      }
+      connection.createChannel(function(error1, channel) {
+      if (error1) {
+      throw error1;
+      }
+      var queue = 'mail';
+      var msg = email;
+  
+      channel.assertQueue(queue, {
+      durable: true
+      });
+  
+      channel.sendToQueue(queue, Buffer.from(msg));
+      console.log(" [x] Sent %s", msg);
+      });
+      setTimeout(function() {
+          connection.close();
+      }, 500);
+      });
+  }
+
+app.get('/mail', (req, res) => {
+  sendMessage("antonella.fiorito15@gmail.com");
+  res.send("test");
+})
 
 app.get('/', (req, res) => {
   res.render('index');

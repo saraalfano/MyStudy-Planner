@@ -1,5 +1,12 @@
 version: "3.8"
 services:
+  nodemailer:
+    build: ./containers/mailer
+    restart: always
+    volumes: 
+      - ./cantainers/mailer:/usr/app
+    networks: 
+      - app
   nginx:
     image: nginx:latest
     ports:
@@ -50,24 +57,14 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbit
-    env_file:
-      - .env
     ports:
       - 5672:5672
       - 15672:15672
     networks:
-      - rabbit
-      
-  nodemailer:
-    build: ./containers/mailer
-    restart: always
-    volumes: 
-      - ./containers/mailer:/usr/app
-    networks:
-      - rabbit
-    env_file:
-      - .env
-    
+      - app
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
 networks:
   app:
   db:

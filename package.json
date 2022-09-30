@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "request": "^2.88.2",
+    "url-pars": "^1.0.3"
+  }
+}

@@ -1,11 +1,11 @@
 const amqp = require('amqplib/callback_api');
 const nodemailer = require("nodemailer");
 
-const usermail = process.env.MAILUSER;
-const passmail = process.env.MAILPASS;
+const usermail = "mystudyplanner3@gmail.com";
+const passmail = "fpyv ihxn dsoe ducd";
 
-const usernamerabbit = process.env.RABBITUSER;
-const passwordrabbit = process.env.RABBITPASS;
+const usernamerabbit = "user";
+const passwordrabbit = "password";
 
 
 let transporter = nodemailer.createTransport({
@@ -34,7 +34,6 @@ function inviaEmail(destinatario){
         console.log('Message sent: %s', info.messageId);
     });
 }
-
 
 
 amqp.connect('amqp://'+usernamerabbit+':'+passwordrabbit+'@rabbit', function(error0, connection) {
