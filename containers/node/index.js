@@ -46,6 +46,42 @@ app.get('/mail', (req, res) => {
   res.send("test");
 })
 
+app.get('/done',async (req,res)=>{
+
+  const queryURL = new urlParse(req.url);
+  const code = queryParse.parse(queryURL.query).code;
+
+  const oauth2Client = new google.auth.OAuth2(
+    clientID,
+    clientSecret,
+    "http://localhost:3000/done"
+  )
+  
+  const tokens = await oauth2Client.getToken(code);
+  console.log(tokens);
+  access_token = JSON.stringify(tokens.tokens.access_token);
+  refresh_token = tokens.tokens.refresh_token;
+
+  res.cookie("refresh",refresh_token);
+  res.cookie("access_token",access_token);
+  res.cookie("access","true");
+
+  var options = {
+    url : "https://www.googleapis.com/oauth2/v2/userinfo", 
+    headers : {
+      Authorization : "Bearer " + access_token,
+    }
+  }
+  request.get(options,function callback(error,response,body){
+    var info = JSON.parse(body);
+    var name = info.name;
+    var email = info.email;
+    res.cookie("email",email);
+    res.render('home',{name:name, email:email});
+
+  });
+})
+
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -73,7 +109,7 @@ app.get("/login", (req,res) =>{
   const oauth2Client = new google.auth.OAuth2(
     clientID,
     clientSecret,
-    "https://localhost:3000/done" //DA CAMBIARE
+    "http://localhost:3000/done" //DA CAMBIARE
   );
   
   // Access scopes for read-only Drive activity.
@@ -96,40 +132,5 @@ app.get("/login", (req,res) =>{
   res.redirect(authorizationUrl);
 });
 
-app.get('/done',async (req,res)=>{
 
-  const queryURL = new urlParse(req.url);
-  const code = queryParse.parse(queryURL.query).code;
-
-  const oauth2Client = new google.auth.OAuth2(
-    clientID,
-    clientSecret,
-    "https://localhost:3000/done"
-  )
-  
-  const tokens = await oauth2Client.getToken(code);
-  console.log(tokens);
-  access_token = JSON.stringify(tokens.tokens.access_token);
-  refresh_token = tokens.tokens.refresh_token;
-
-  res.cookie("refresh",refresh_token);
-  res.cookie("access_token",access_token);
-  res.cookie("access","true");
-
-  var options = {
-    url : "https://www.googleapis.com/oauth2/v2/userinfo", 
-    headers : {
-      Authorization : "Bearer " + access_token,
-    }
-  }
-  request.get(options,function callback(error,response,body){
-    var info = JSON.parse(body);
-    var name = info.name;
-    var email = info.email;
-    res.cookie("email",email);
-    addUser(name,email);
-    res.render('homepage',{name:name, email:email});
-
-  });
-})
 
