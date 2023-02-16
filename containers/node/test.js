@@ -24,8 +24,15 @@ describe('Test dell\'applicazione', () => {
 	
 });
 
-//describe('Test delle api del sito', () => {
+describe('Test visualizzazione sito', () => {
+    it('Endpoint /api dovrebbe restituire 200 OK con un body', (done) => {
+		chai.request(app)
+			.get('/home')
+			.end((err, res) => {
+                res.should.have.status(200);
+				res.should.have.property('body');
+				done();
+			});
+	});
 
-	
-
-//});
+});
