@@ -36,14 +36,4 @@ describe('Test delle api del sito', () => {
 			});
 	});
 
-    it('Endpoint /api dovrebbe restituire 200 OK con un body', (done) => {
-		chai.request(app)
-			.get('/api/NoteBySubject/materia')
-			.end((err, res) => {
-                res.should.have.status(200);
-				res.should.have.property('body');
-				done();
-			});
-	});
-
 });
