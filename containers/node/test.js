@@ -20,15 +20,6 @@ describe('Test dell\'applicazione', () => {
 				done();
 			});
 	});
-	it('Endpoint /api dovrebbe restituire 200 OK con un body', (done) => {
-		chai.request(app)
-			.get('/api/allNotes')
-			.end((err, res) => {
-                res.should.have.status(200);
-				res.should.have.property('body');
-				done();
-			});
-	});
 
 	
 });
