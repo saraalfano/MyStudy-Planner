@@ -18,7 +18,5 @@ jobs:
       - uses: actions/setup-node@v3
       - name: npm installation
         run: npm install
-      - name: permission
-        run: sudo chown -R $(whoami)
       - name: run test
         run: npm run test
