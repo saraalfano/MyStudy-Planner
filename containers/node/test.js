@@ -20,12 +20,6 @@ describe('Test dell\'applicazione', () => {
 				done();
 			});
 	});
-
-	
-});
-
-describe('Test delle api del sito', () => {
-
 	it('Endpoint /api dovrebbe restituire 200 OK con un body', (done) => {
 		chai.request(app)
 			.get('/api/allNotes')
@@ -36,4 +30,11 @@ describe('Test delle api del sito', () => {
 			});
 	});
 
+	
 });
+
+//describe('Test delle api del sito', () => {
+
+	
+
+//});
