@@ -1,0 +1,64 @@
+head
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  title Home | MyStudy Planner
+  .col-lg-2
+  link(rel='manifest', href='../site.webmanifest')
+  link(rel='stylesheet', href='./css/style2.css')
+  link(rel='stylesheet', href='./bootstrap/css/bootstrap-grid.css')
+  link(rel='stylesheet', href='./bootstrap/css/bootstrap-utilities.css')
+  link(rel='stylesheet', href='./bootstrap/css/bootstrap-grid.rtl.css')
+  link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js', integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q', crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js', integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl', crossorigin='anonymous')
+nav.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top
+  img.flex(src='./immagini/logo.jpg', alt='7')
+  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+    a(href='/logout')
+      img(src='./immagini/logout.png', style='width: 58px; height:45px; padding-left: 15px;')
+div
+  br
+div
+  br
+div
+  br
+table.table.tabellacentrale
+  thead
+    tr
+      th(scope='col') #
+      th(scope='col') Argomento
+      th(scope='col') Materia
+      th(scope='col') Autore
+      th(scope='col') 
+      th(scope='col')
+  tbody
+    script.
+      var file = !{file};
+      var num_rows = file.total_rows;
+      var rows = file.rows
+      for(var i=0;i<num_rows;i++){
+        var path = rows[i].value[0]
+        var argomento = rows[i].value[1]
+        var materia = rows[i].value[2]
+        var autore = rows[i].value[3]
+        document.write(`
+        <tr>
+        <th class="contatore" scope="row">`+(i+1)+`</th>
+        <td>`+argomento+`</td>
+        <td>`+materia+`</td>
+        <td>`+autore+`</td>
+        <td> <form action="load_on_drive" method="post"><input type="hidden" name="path" value="`+path+`"><input type="hidden" name="argomento" value="`+argomento+`"><input type="submit" class="btn btn-warning elimina"  value="Aggiungi a Drive"></form></td>
+        <td> <form action="/api/GetNoteById/`+path+`"><button class="btn btn-primary">Download</button></form></td>
+        </tr>
+      `)
+      }
+
+
+
+
+
+

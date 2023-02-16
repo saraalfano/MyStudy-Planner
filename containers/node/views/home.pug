@@ -18,7 +18,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white.fixed-top
     span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-    a(href='https://google.com/accounts/Logout?returnTo=http://localhost:3000')
+    a(href='/logout')
       img(src='./immagini/logout.png', style='width: 58px; height:45px; padding-left: 15px;')
 div
   br
@@ -26,14 +26,49 @@ div
   br
 div
   br
-div(align='center')
-  .framegrid.dimframe.row
-    .orizz
-      p Il tuo calendario!
-  .framegrid.dimframe.row
-    .orizz
-      p Per vedere i tuoi appunti o caricarne nuovi
-  .framegrid.dimframe.row
-    .orizz
-      p  Hai bisogno di un libro?
+table.table.tabellacentrale
+  thead
+    tr
+      th(scope='col') #
+      th(scope='col') Materia
+      th(scope='col') Crediti
+      th(scope='col') Voto
+      th(scope='col') Data
+      th(scope='col') 
+  tbody
+    script.
+      var file = !{file};
+      var num_rows = file.total_rows;
+      var rows = file.rows
+      for(var i=0;i<num_rows;i++){
+        var materia = rows[i].value[0]
+        var cfu = rows[i].value[1]
+        var voto = rows[i].value[2]
+        var data = rows[i].value[3]
+        document.write(`
+        <tr>
+        <th class="contatore" scope="row">`+(i+1)+`</th>
+        <td>`+materia+`</td>
+        <td>`+cfu+`</td>
+        <td>`+voto+`</td>
+        <td>`+data+`</td>
+        <td> <form action="remove_exam" method="post"><input type="hidden" name="esame" value="`+materia+`"><input type="submit" class="btn btn-danger elimina"  value="Elimina"></form></td>
+        </tr>
+      `)
+      }
+
+div(class="container")
+  a(href="/add_exam")
+    button.btn Aggiungi un esame 
+
+div(class="container")
+  a(href="/upload")
+    button.btn Aggiungi Appunti
+
+div(class="container")
+  a(href="/notes")
+    button.btn Visualizza Appunti
+
+
+
 

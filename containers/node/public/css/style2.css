@@ -94,3 +94,21 @@
     max-width: 130px;
     max-height: 40px;
 }
+
+.tabellacentrale{
+  border-style:solid;
+  border-color:white;
+  width: 80% !important;
+  margin: auto;
+  padding: 10px;
+  border-radius: 20px;
+  background-image: linear-gradient(180deg, rgba(0,0,0,0), #7FFFD4);
+}
+
+td{
+  vertical-align: middle !important;
+}
+
+.contatore{
+  vertical-align: middle !important;
+}
